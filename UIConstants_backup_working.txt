@@ -1,0 +1,91 @@
+package tcoe.driver;
+
+import java.sql.Connection;
+
+/**
+ * The Class UIConstants.
+ */
+public class UIConstants {
+	/*Environment Details*/
+	public static String ENV_TEST_ENV = "Dev";
+	
+	/*File/TimeBased*/
+	public static String ENV_FileSource ="FileBased";
+	
+	/*Path Details*/
+	public static String Rcx_Auto_Path ="\\InputFolder";	
+	public static String ENV_ProcessedFilePath ="\\Files\\ProcessedFiles";
+	public static String ENV_RejectedFilePath ="\\Files\\RejectedFiles";
+	public static String ENV_UnProcessedFilePath ="\\Files\\UnprocessedFiles";
+	public static String ENV_InvalidFileNamePath = "\\Files\\InvalidFileName";
+	
+	/*Automation SQL DB Details*/
+	public static String AutoDB_UserName = "TestAutomationUser";
+	public static String AutoDB_Password = "tau12345";
+	public static String AutoDB_Server = "VM-8B4C-8871";
+	public static String AutoDB_DBType = "SQLEXPRESS";
+	public static String AutoDB_Purpose = "TestAutomation";
+	public static String AutoDB_Config = "YYY";
+	
+	/*Functional RCX DB Details*/
+	public static String RCXDB_UserName = "MP75765";
+	public static String RCXDB_Password = "aixdev97";
+	public static String RCXDB_Host = "fdcgtsrcxad01d.eur.nsroot.net:11081";
+	public static String RCXDB_DBType = "DRCX01";
+	
+	/*Reportpath*/
+	public static final String ENV_StrReportFilePath = null;
+	public static String ENV_filelink_path = null;
+	
+	public static String ProcessedFiles;
+	public static String UnprocessedFiles;
+	public static String RejectedFiles;
+	public static String InvalidFileNamePath;
+	
+	public static double ENV_TimeTakenToPost;
+	
+	/** The Constant BROWSER_NAME. */
+	public static final String BROWSER_NAME = "BROWSER_NAME";
+	
+	/** The Constant URL. */
+	public static final String URL = "URL";
+	
+	/** The Constant CHROME_DRIVER_PATH. */
+	public static final String CHROME_DRIVER_PATH = "CHROME_DRIVER_PATH";
+	public static final String IE_DRIVER_PATH = "IE_DRIVER_PATH";
+	
+	/** The Constant SQL_PROPERTY_FILE_PATH. */
+	public static final String SQL_PROPERTY_FILE_PATH = "./Configuration/Sql.properties";
+	
+	/** The Constant CONFIG_PROPERTY_FILE_PATH. */
+	public static final String CONFIG_PROPERTY_FILE_PATH = "./Configuration/Config.properties";
+	
+	/** The Constant PAGE_OBJECTS_PROPERTY_FILE_PATH. */
+	public static final String PAGE_OBJECTS_PROPERTY_FILE_PATH = "./Configuration/PageObjects.properties";
+	
+	/** The Constant MAXWAITTIME. */
+	public static final String MAXWAITTIME = "MAXWAITTIME";
+	
+	/** The Constant SCREENSHOTPATH. */
+	public static final String SCREENSHOTPATH = "SCREENSHOTPATH";
+	
+	/** The Constant INPUT_EXCEL_FILE_PATH. */
+	public static final String INPUT_EXCEL_FILE_PATH = "INPUT_EXCEL_FILE_PATH";
+	
+	/** The Constant TEST_DATA_SHEETNAME. */
+	public static final String TEST_DATA_SHEETNAME = "TEST_DATA_SHEETNAME";
+	
+	public static final String RUN_MANAGER_SHEETNAME = "RUN_MANAGER_SHEETNAME";
+	
+	/** The Constant RESULT_EXCEL_FILE_PATH. */
+	public static final String RESULT_EXCEL_FILE_PATH = "RESULT_EXCEL_FILE_PATH";
+
+	/** The Constant RESULT_PATH. */
+	public static final String RESULT_PATH = "RESULT_PATH";
+	public static final String USER_PROPERTY_FILE_PATH = "./Configuration/UserValues.properties";
+	public static final String strExtentReportConfigPath = "Configuration/extent-config.xml";
+	
+	public static final double ENV_TimeTakenToFetch = 0;
+
+	
+	}
