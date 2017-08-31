@@ -1,0 +1,146 @@
+Sub Fetch_Update_DB()
+
+    Dim arrValue(200)
+    Dim recordsetcount
+    Set con = CreateObject("adodb.connection")
+    Set rs = CreateObject("adodb.recordset")
+    
+    Worksheets("Home").Activate
+    sqlquer = Cells(17, 2).Value
+    destablename = Cells(18, 2).Value
+     Cells(3, 5).Value = ""
+     Cells(3, 5).Value = "Started"
+    
+    'Source DB details
+    DBi = 3
+    DBj = 2
+    strInstance = Worksheets("Home").Cells(DBi + 2, DBj).Value
+    strHost = Worksheets("Home").Cells(DBi, DBj).Value
+    strPort = Worksheets("Home").Cells(DBi + 1, DBj).Value
+    strUid = Worksheets("Home").Cells(DBi + 3, DBj).Value
+    strpwd = Worksheets("Home").Cells(DBi + 4, DBj).Value
+    
+    strcon = "Driver={Microsoft ODBC for Oracle}; " & _
+    "CONNECTSTRING=(DESCRIPTION=" & _
+    "(ADDRESS=(PROTOCOL=TCP)" & _
+    "(HOST=" & strHost & ")(PORT=" & strPort & "))" & _
+    "(CONNECT_DATA=(SID=" & strInstance & "))); uid=" & strUid & ";pwd=" & strpwd & ";"
+
+    'Destination source DB details
+
+    Set tocon = CreateObject("adodb.connection")
+    Set tors = CreateObject("adodb.recordset")
+    DBi = 10
+    DBj = 2
+    strInstance = Worksheets("Home").Cells(DBi + 2, DBj).Value
+    strHost = Worksheets("Home").Cells(DBi, DBj).Value
+    strPort = Worksheets("Home").Cells(DBi + 1, DBj).Value
+    strUid = Worksheets("Home").Cells(DBi + 3, DBj).Value
+    strpwd = Worksheets("Home").Cells(DBi + 4, DBj).Value
+    
+    tostrcon = "Driver={Microsoft ODBC for Oracle}; " & _
+    "CONNECTSTRING=(DESCRIPTION=" & _
+    "(ADDRESS=(PROTOCOL=TCP)" & _
+    "(HOST=" & strHost & ")(PORT=" & strPort & "))" & _
+    "(CONNECT_DATA=(SID=" & strInstance & "))); uid=" & strUid & ";pwd=" & strpwd & ";"
+
+
+    con.ConnectionString = strcon
+    tocon.ConnectionString = tostrcon
+
+    con.Open
+    tocon.Open
+
+    Cells(3, 5).Value = "Fetching Data from Source DB and Updating to Destination DB"
+    'oen souce DB with given query
+    rs.Open sqlquer, con
+    
+    If IsEmpty(rs) Then
+        Cells(3, 5).Value = "No Records Found in Source DB"
+    Else
+    
+        'msgbox err.number
+        'msgbox err.description
+        'rs.movefirst
+    
+        recordsetcount = rs.Fields.Count
+        'MsgBox recordsetcount
+        
+        For i = 0 To recordsetcount - 1
+            strarrValue = strarrValue & "," & "'" & """" & "&" & "arrValue(" & i & ")" & "&" & """" & "'"
+        Next
+        strarrValue = Mid(strarrValue, 2, 1000)
+        
+        Do While Not rs.EOF
+            ''DataTable.SetCurrentRow (i)
+            j = 1
+            Z = 0
+            For Each fld In rs.Fields
+        
+                 'MsgBox fld.Value
+                 arrValue(Z) = fld.Value
+                
+                 j = j + 1
+                 Z = Z + 1
+            Next
+            rs.MoveNext
+            
+            sqlquer = "insert into " & destablename & " values ('" & arrValue(0) & "','" & arrValue(1) & "','" & arrValue(2) & "')"
+            'MsgBox sqlquer
+            tocon.Execute sqlquer
+            i = i + 1
+        Loop
+        
+        'With Worksheets("DBResult")
+        '        .Activate
+        '        .Cells(1, 1).CopyFromRecordset rs
+        '    End With
+    End If
+    
+    'Closing connections
+    con.Close
+    tocon.Close
+    
+    Cells(3, 5).Value = "Completed Successfully"
+    MsgBox "Completed"
+
+End Sub
+
+Sub Delete_Data_Destination_DB()
+
+
+    Worksheets("Home").Activate
+    destablename = Cells(18, 2).Value
+    'Destination source DB details
+
+    Set tocon = CreateObject("adodb.connection")
+    Set tors = CreateObject("adodb.recordset")
+    DBi = 10
+    DBj = 2
+    strInstance = Worksheets("Home").Cells(DBi + 2, DBj).Value
+    strHost = Worksheets("Home").Cells(DBi, DBj).Value
+    strPort = Worksheets("Home").Cells(DBi + 1, DBj).Value
+    strUid = Worksheets("Home").Cells(DBi + 3, DBj).Value
+    strpwd = Worksheets("Home").Cells(DBi + 4, DBj).Value
+    
+    tostrcon = "Driver={Microsoft ODBC for Oracle}; " & _
+    "CONNECTSTRING=(DESCRIPTION=" & _
+    "(ADDRESS=(PROTOCOL=TCP)" & _
+    "(HOST=" & strHost & ")(PORT=" & strPort & "))" & _
+    "(CONNECT_DATA=(SID=" & strInstance & "))); uid=" & strUid & ";pwd=" & strpwd & ";"
+
+
+    tocon.ConnectionString = tostrcon
+
+    tocon.Open
+
+    sqlquer = "delete from " & destablename
+        'MsgBox sqlquer
+    tocon.Execute sqlquer
+
+
+
+
+End Sub
+
+
